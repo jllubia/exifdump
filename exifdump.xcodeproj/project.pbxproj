@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CFFD9F6619F8316700A5880C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFD9F6519F8316700A5880C /* main.m */; };
+		CFFD9F6D19F8328900A5880C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFFD9F6C19F8328900A5880C /* ImageIO.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		CFFD9F6219F8316700A5880C /* exifdump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = exifdump; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFFD9F6519F8316700A5880C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CFFD9F6C19F8328900A5880C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFFD9F6D19F8328900A5880C /* ImageIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +44,7 @@
 		CFFD9F5919F8316700A5880C = {
 			isa = PBXGroup;
 			children = (
+				CFFD9F6C19F8328900A5880C /* ImageIO.framework */,
 				CFFD9F6419F8316700A5880C /* exifdump */,
 				CFFD9F6319F8316700A5880C /* Products */,
 			);
