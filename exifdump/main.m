@@ -9,18 +9,31 @@
 #import <Foundation/Foundation.h>
 #import <ImageIO/ImageIO.h>
 
+#define VERSION_NUMBER "1.0"
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSArray * arguments = [[NSProcessInfo processInfo] arguments];
         
         if (arguments.count < 2) {
-            printf("\nNeed more arguments");
+            printf("Usage: exifdump file ...\n");
             return -1;
         }
         
+        if (arguments.count == 2 && [arguments[1] isEqualToString:@"--version"]) {
+            printf("%s\n", VERSION_NUMBER);
+            return 0;
+        }
+        
         for (int index = 1; index < arguments.count; index++) {
+            
             NSString * filename = arguments[index];
-            printf("\nFile: %s", [filename cStringUsingEncoding: NSUTF8StringEncoding]);
+            if (![[NSFileManager defaultManager] fileExistsAtPath: filename]) {
+                printf("Could not open '%s'\n", [filename cStringUsingEncoding: NSUTF8StringEncoding]);
+                continue;
+            }
+
+            printf("File: %s", [filename cStringUsingEncoding: NSUTF8StringEncoding]);
 
             NSData * imageData = [NSData dataWithContentsOfFile: filename];
             
@@ -31,7 +44,7 @@ int main(int argc, const char * argv[]) {
                     NSDictionary * imageMetadata = [(NSDictionary *) CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL)) mutableCopy];
                                         
                     printf("\nUTI: %s", [UTIString cStringUsingEncoding: NSUTF8StringEncoding]);
-                    printf("\nMetadata: %s", [[imageMetadata description] cStringUsingEncoding: NSUTF8StringEncoding]);
+                    printf("\nMetadata: %s\n", [[imageMetadata description] cStringUsingEncoding: NSUTF8StringEncoding]);
                     
                     CFRelease(imageSource);
                 } else {
@@ -41,6 +54,7 @@ int main(int argc, const char * argv[]) {
                 printf("\nDid not get data...");
             }
         }
+        
     }
     return 0;
 }
