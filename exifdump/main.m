@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <ImageIO/ImageIO.h>
 
-#define VERSION_NUMBER "1.0"
+#define VERSION_NUMBER "1.1"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -41,8 +41,10 @@ int main(int argc, const char * argv[]) {
                 CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
                 if (imageSource != NULL) {
                     NSString * UTIString = (NSString *)CFBridgingRelease(CGImageSourceGetType(imageSource));
-                    NSDictionary * imageMetadata = [(NSDictionary *) CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL)) mutableCopy];
-                                        
+                    NSMutableDictionary * imageMetadata = [(NSDictionary *) CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL)) mutableCopy];
+                    NSDictionary * additionalMetadata = [(NSDictionary *) CFBridgingRelease(CGImageSourceCopyProperties(imageSource, NULL)) copy];
+                    [imageMetadata addEntriesFromDictionary: additionalMetadata];
+
                     printf("\nUTI: %s", [UTIString cStringUsingEncoding: NSUTF8StringEncoding]);
                     printf("\nMetadata: %s\n", [[imageMetadata description] cStringUsingEncoding: NSUTF8StringEncoding]);
                     
